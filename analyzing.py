@@ -1,28 +1,28 @@
 import pandas as pd
 import numpy as np
 
-#data_frame
+#df = data frame
 df = pd.read_csv('test.csv')
 
-# print(df['idade'])
-# ##<class 'pandas.core.series.Series'>
-# print(df.head())
-# #<class 'pandas.core.frame.DataFrame'>
+# df['column'])
+# <class 'pandas.core.series.Series'>
+# df.head()
+# <class 'pandas.core.frame.DataFrame'>
 
 day = []
 time = []
 for cell in df['timestamp']:
     dt = cell.split(" ")
+    # print(dt)
+    # break
     day.append(dt[0])
     time.append(dt[1])
 
-data = data.drop(columns="timestamp")
+df = df.drop(columns="timestamp")
 df['day'] = day
-df['dia'] = day
-
+df['dia'] = time
 
 # print(df.head())
-# #<class 'pandas.core.frame.DataFrame'>
 
-# export_csv = df.to_csv ('test1.csv', index = None, header=True)
-#  #Don't forget to add '.csv' at the end of the path
+export_csv = df.to_csv ('test1.csv', index = None, header=True)
+#Don't forget to add '.csv' at the end of the path
