@@ -1,15 +1,28 @@
 import pandas as pd
-#import numpy as np
+import numpy as np
 
 #data_frame
 df = pd.read_csv('test.csv')
 
-print(df['idade'])
-##<class 'pandas.core.series.Series'>
+# print(df['idade'])
+# ##<class 'pandas.core.series.Series'>
+# print(df.head())
+# #<class 'pandas.core.frame.DataFrame'>
 
-for cell in df['hogwarts house']:
-    print(cell)
-    #<type 'str'>
+day = []
+time = []
+for cell in df['timestamp']:
+    dt = cell.split(" ")
+    day.append(dt[0])
+    time.append(dt[1])
 
-print(df.head())
-#<class 'pandas.core.frame.DataFrame'>
+data = data.drop(columns="timestamp")
+df['day'] = day
+df['dia'] = day
+
+
+# print(df.head())
+# #<class 'pandas.core.frame.DataFrame'>
+
+# export_csv = df.to_csv ('test1.csv', index = None, header=True)
+#  #Don't forget to add '.csv' at the end of the path
