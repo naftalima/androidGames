@@ -19,8 +19,8 @@ for cell in df['timestamp']:
     time.append(dt[1])
 
 df = df.drop(columns="timestamp")
-df['day'] = day
-df['dia'] = time
+df['dia'] = day
+df['hora'] = time
 
 # print(df.head())
 
