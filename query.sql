@@ -1,4 +1,4 @@
-SELECT battery_level, version_name, device_id, samples.timestamp
+SELECT battery_level, version_name, device_id, `timestamp`
 FROM app_processes INNER JOIN samples 
 ON samples.id = app_processes.sample_id
 WHERE name='com.kiloo.subwaysurf' AND ( NOT battery_state='Charging') AND importance='Foreground app'
