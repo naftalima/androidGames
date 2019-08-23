@@ -1,10 +1,28 @@
-SELECT battery_level, version_name, device_id, `timestamp`
+SELECT name, battery_level, version_name, device_id, `timestamp`
 FROM app_processes INNER JOIN samples 
 ON samples.id = app_processes.sample_id
-WHERE name='com.kiloo.subwaysurf' AND ( NOT battery_state='Charging') AND importance='Foreground app'
-ORDER BY device_id, `timestamp`
+WHERE ( NOT battery_state='Charging') AND importance='Foreground app'
+AND ( name='com.dts.freefireth' OR name='com.slippy.linerusher' 
+OR name='com.innersloth.spacemafia' OR name='com.playgendary.tom'
+OR name='com.kiloo.subwaysurf' OR name='com.cassette.aquapark'
+/* OR name='com.roblox.client'*/ OR name='com.dpspace.rocketsky'
+OR name='com.crazylabs.lady.bug' OR name='com.tencent.iglite'
+OR name='com.tapped.flipdunk' OR name='com.youmusic.magictiles'
+/* OR name= 'me.pou.app' */ OR name='com.water.balls'
+/* OR name='com.outfit7.mytalkingtom' */ OR name='com.mojang.minecrafttrialpe'
+OR name='com.mgc.runnergame' OR name='com.amanotes.beathopper'
+OR name='com.miniclip.eightballpool' OR name='com.rovio.baba'
+OR name='com.supercell.brawlstars' )
+ORDER BY name, device_id, `timestamp`
 
-/* Importance can be : Background process, Foreground app, Service*/
+/* it is important that the phone is not charging because I will analyze its discharge*/
+
+/* Importance can be : Background process, Foreground app, Service
+ so I chose the option where the user will be effectively using the app */
+
+ /*
+I will not use the application_label, because when I tested some appeared NULL
+ */
 
 /*
 Top jogos Gratuitos
@@ -31,4 +49,6 @@ Top jogos Gratuitos
     Angry Birds 2: com.rovio.baba
     ---
     Brawl Stars: com.supercell.brawlstars
+
+    these games with * have no well-defined genre 
 */
