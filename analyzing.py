@@ -28,8 +28,11 @@ def agrupando(nome):
 gamename= 'com.dts.freefireth'
 freefire = agrupando(gamename)
 for i in freefire:
-    print(i)
+    for j in freefire[i]:
+        print(j)
     break
+    #nao ta ordenadooooooo AAAAAAAAAAAAAAAAAAA
+
 
 
 #export_csv = dfFreeFire.to_csv ('test1.csv', index = None, header=True)
