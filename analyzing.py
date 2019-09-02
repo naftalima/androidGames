@@ -24,10 +24,22 @@ df['timestamp'] =  pd.to_datetime(df['timestamp'])
 #     break
 # <class 'pandas._libs.tslibs.timestamps.Timestamp'>
 
+version_name={}
+for index, row in df.iterrows():
+    if row["name"] == 'com.dts.freefireth':
+        if not row["version_name"] in version_name:
+            version_name[row["version_name"]] = []
+            version_name[row["version_name"]].append(row['device_id'])
 
+        else:
+            version_name[row["version_name"]].append(row['device_id'])
 
-export_csv = dfFF.to_csv ('test1.csv', index = None, header=True)
+# print(version_name)
+# print(version_name.keys())
+# for i in version_name.items():
+#     print(i) # TUPLE (KEY, ITEM)
 
+#export_csv = dfFF.to_csv ('test1.csv', index = None, header=True)
 # df = df.drop(columns="coluna") #delete coluna
 # df['colunaNome'] = listaValores #add colunaNome
 # print(df.head())
