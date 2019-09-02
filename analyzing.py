@@ -1,45 +1,35 @@
 import pandas as pd
 import numpy as np
 
-# TYPE df['column'])
-# <class 'pandas.core.series.Series'>
-# TYPE df.head()
-# <class 'pandas.core.frame.DataFrame'>
-
 #df: data frame
 df = pd.read_csv('test.csv')
-#print(df.head())
-# for i in df:
-#     print(i)
-# # name, battery_level, version_name, device_id, timestamp
+# name, battery_level, version_name, device_id, timestamp
 
 #new empty dataframe 
-dfFF = pd.DataFrame() # free fire
+dfFreeFire = pd.DataFrame() # free fire
 
-
-## https://pandas.pydata.org/pandas-docs/stable/reference/api/pandas.to_datetime.html 
+# str into  <class 'pandas._libs.tslib.Timestamp>
 df['timestamp'] =  pd.to_datetime(df['timestamp'])
-# for i in df['timestamp']:
-#     print(type(i))
-#     break
-# <class 'pandas._libs.tslibs.timestamps.Timestamp'>
 
-version_name={}
-for index, row in df.iterrows():
-    if row["name"] == 'com.dts.freefireth':
-        if not row["version_name"] in version_name:
-            version_name[row["version_name"]] = []
-            version_name[row["version_name"]].append(row['device_id'])
+def agrupando(nome):
+    version_name={} # dicionario de listas de Series 
+    ## Name:
+    ##Version_Name = {'Device_id' : [[timestamp, battery level]]} 
+    for index, row in df.iterrows():
+        if row["name"] == nome:
+            if not row["version_name"] in version_name:
+                version_name[row["version_name"]] = []
+                version_name[row["version_name"]].append([row['timestamp'],row['battery_level']])
+            else:
+                version_name[row["version_name"]].append([row['timestamp'],row['battery_level']])
+    return(version_name)
 
-        else:
-            version_name[row["version_name"]].append(row['device_id'])
 
-# print(version_name)
-# print(version_name.keys())
-# for i in version_name.items():
-#     print(i) # TUPLE (KEY, ITEM)
+gamename= 'com.dts.freefireth'
+print(agrupando(gamename))
 
-#export_csv = dfFF.to_csv ('test1.csv', index = None, header=True)
+
+#export_csv = dfFreeFire.to_csv ('test1.csv', index = None, header=True)
 # df = df.drop(columns="coluna") #delete coluna
 # df['colunaNome'] = listaValores #add colunaNome
 # print(df.head())
