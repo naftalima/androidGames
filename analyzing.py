@@ -26,7 +26,10 @@ def agrupando(nome):
 
 
 gamename= 'com.dts.freefireth'
-print(agrupando(gamename))
+freefire = agrupando(gamename)
+for i in freefire:
+    print(i)
+    break
 
 
 #export_csv = dfFreeFire.to_csv ('test1.csv', index = None, header=True)
