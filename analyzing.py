@@ -14,7 +14,7 @@ df = pd.read_csv('test.csv')
 # # name, battery_level, version_name, device_id, timestamp
 
 #new empty dataframe 
-dfout = pd.DataFrame()
+dfFF = pd.DataFrame() # free fire
 
 
 ## https://pandas.pydata.org/pandas-docs/stable/reference/api/pandas.to_datetime.html 
@@ -26,7 +26,7 @@ df['timestamp'] =  pd.to_datetime(df['timestamp'])
 
 
 
-export_csv = dfout.to_csv ('test1.csv', index = None, header=True)
+export_csv = dfFF.to_csv ('test1.csv', index = None, header=True)
 
 # df = df.drop(columns="coluna") #delete coluna
 # df['colunaNome'] = listaValores #add colunaNome
