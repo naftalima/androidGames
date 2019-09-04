@@ -47,6 +47,8 @@ for key, val in freefire.items():
                 dataf['Tinicial'].append(tempo[0])
                 dataf['Tfinal'].append(tempo[-1])
 
+print("AAAAAAAAAAAAAAAAAA")
+
 
         # count=0
         # tempos=[]
