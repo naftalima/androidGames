@@ -33,22 +33,37 @@ gamename= 'com.dts.freefireth'
 freefire = agrupando(gamename)
 # print(freefire)
 
-
-dataf = { 'Tinicial': [] , 'Tfinal': [], 'Binicial': [], 'Bfinal': [] }
+dateInit = []
+batteryInit =[]
+dateFinal = []
+batteryFinal =[]
 for key, val in freefire.items():
+    print("version_name",key)
     for key0, val0 in val.items():
+        print("device_id", key0)
         n = len(val0)
-        tempos = []
+        dateInit.append(val0[0][0])
+        batteryInit.append(val0[0][1])
         for i in range(n-1):
-            if (i[1] - i[+1] > 0.3): # pois parou
-                
+            print("timestamp: ",val0[i][0])
+            print("battery level: ",val0[i][1])
+            if ( val0[i][1] - val0[i+1][1] > 0.03) or (val0[i][1] - val0[i+1][1] <= 0): # pois parou
+                dateFinal.append(val0[i][0])
+                batteryFinal.append(val0[i][1])
+                dateInit.append(val0[i+1][0])
+                batteryInit.append(val0[i+1][1])
             else:
-                tempo.append(i[0])
-                dataf['Tinicial'].append(tempo[0])
-                dataf['Tfinal'].append(tempo[-1])
-
-print("AAAAAAAAAAAAAAAAAA")
-
+                if i == n-2: ##fim da lista
+                    dateFinal.append(val0[i+1][0])
+                    batteryFinal.append(val0[i+1][1])
+                  
+        break           
+    break
+print("OLAAAAAAAAAAAAAAAAAAAAA")
+print(batteryInit)
+print(len(batteryInit))
+print(batteryFinal)
+print(len(batteryFinal))
 
         # count=0
         # tempos=[]
