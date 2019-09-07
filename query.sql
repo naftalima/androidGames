@@ -4,17 +4,17 @@ ON samples.id = app_processes.sample_id
 WHERE `timestamp` >= '01-01-2018 00:00:00'
 AND ( NOT battery_state='Charging') AND importance='Foreground app'
 AND ( name='com.dts.freefireth' 
--- OR name='com.slippy.linerusher' 
--- OR name='com.innersloth.spacemafia' OR name='com.playgendary.tom'
--- OR name='com.kiloo.subwaysurf' OR name='com.cassette.aquapark'
--- /* OR name='com.roblox.client'*/ OR name='com.dpspace.rocketsky'
--- OR name='com.crazylabs.lady.bug' OR name='com.tencent.iglite'
--- OR name='com.tapped.flipdunk' OR name='com.youmusic.magictiles'
--- /* OR name= 'me.pou.app' */ OR name='com.water.balls'
--- /* OR name='com.outfit7.mytalkingtom' */ OR name='com.mojang.minecrafttrialpe'
--- OR name='com.mgc.runnergame' OR name='com.amanotes.beathopper'
--- OR name='com.miniclip.eightballpool' OR name='com.rovio.baba'
--- OR name='com.supercell.brawlstars' )
+OR name='com.slippy.linerusher' 
+OR name='com.innersloth.spacemafia' OR name='com.playgendary.tom'
+OR name='com.kiloo.subwaysurf' OR name='com.cassette.aquapark'
+OR name='com.roblox.client' OR name='com.dpspace.rocketsky'
+OR name='com.crazylabs.lady.bug' OR name='com.tencent.iglite'
+OR name='com.tapped.flipdunk' OR name='com.youmusic.magictiles'
+OR name= 'me.pou.app' OR name='com.water.balls'
+OR name='com.outfit7.mytalkingtom'  OR name='com.mojang.minecrafttrialpe'
+OR name='com.mgc.runnergame' OR name='com.amanotes.beathopper'
+OR name='com.miniclip.eightballpool' OR name='com.rovio.baba'
+/*OR name='com.supercell.brawlstars'*/ )
 ORDER BY name, device_id, `timestamp`
 
 /* it is important that the phone is not charging because I will analyze its discharge*/

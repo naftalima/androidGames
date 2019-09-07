@@ -97,9 +97,31 @@ def porUso(jogoAgrupado):
 
     return(dfJogo)
 
-gamename= 'com.dts.freefireth'
-freefire = agrupando(gamename)
-dataFramegame = porUso(freefire)
-print(dataFramegame.head(5))
+#     Garena Free Fire: com.dts.freefireth
+#     Fun Race 3D: com.slippy.linerusher
+#     Among Us: com.innersloth.spacemafia
+#     Tomb of the Mask: com.playgendary.tom
+#     Subway Surfers: com.kiloo.subwaysurf
+#     aquapark.io: com.cassette.aquapark
+#     * ROBLOX: com.roblox.client
+#     Rocket Sky!: com.dpspace.rocketsky
+#     Miraculous: Ladybug & Gato Noir Jogo Oficial: com.crazylabs.lady.bug
+#     PUBG MOBILE LITE: com.tencent.iglite
+#     Flip Dunk: com.tapped.flipdunk
+#     Magic Tiles 3: com.youmusic.magictiles
+#     *Pou : me.pou.app
+#     Sand Balls: com.water.balls
+#     *Meu Talking Tom 2: com.outfit7.mytalkingtom
+#     Teste do Minecraft: com.mojang.minecrafttrialpe
+#     Run Race - Corrida 3D: com.mgc.runnergame
+#     Tiles Hop: Forever Dancing Ball: com.amanotes.beathopper
+#     8 Ball Pool: com.miniclip.eightballpool
+#     Angry Birds 2: com.rovio.baba
 
-export_csv = dataFramegame.to_csv ('test1.csv', header=True)
+freeFireName= 'com.dts.freefireth'
+dfFreefire = porUso(agrupando(freeFireName))
+export_csv = dfFreefire.to_csv ('Garena_Free_Fire.csv', header=True)
+
+funRaceName= 'com.slippy.linerusher'
+dfFunRace = porUso(agrupando(funRaceName))
+export_csv = dfFunRace.to_csv ('Fun_Race_3D.csv', header=True)
