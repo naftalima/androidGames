@@ -72,7 +72,7 @@ def porUso(jogoAgrupado):
     dfJogo['TimestampFinal'] = dateFinal
     dfJogo['TimestampInitial'] = dateInit
 
-    print(dfJogo.head(10))
+    # print(dfJogo.head(10))
 
     batteryused = []
     elapsedtime = []
@@ -125,3 +125,4 @@ export_csv = dfFreefire.to_csv ('Garena_Free_Fire.csv', header=True)
 # funRaceName= 'com.slippy.linerusher'
 # dfFunRace = porUso(agrupando(funRaceName))
 # export_csv = dfFunRace.to_csv ('Fun_Race_3D.csv', header=True)
+print("what")
