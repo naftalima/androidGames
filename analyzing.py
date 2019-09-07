@@ -2,7 +2,7 @@ import pandas as pd
 import numpy as np
 
 #df: data frame
-df = pd.read_csv('test.csv')
+df = pd.read_csv('_SELECT_name_battery_level_version_name_device_id_timestamp_FROM_201909071531.csv')
 # name, battery_level, version_name, device_id, timestamp
 
 # #new empty dataframe 
@@ -122,6 +122,6 @@ freeFireName= 'com.dts.freefireth'
 dfFreefire = porUso(agrupando(freeFireName))
 export_csv = dfFreefire.to_csv ('Garena_Free_Fire.csv', header=True)
 
-funRaceName= 'com.slippy.linerusher'
-dfFunRace = porUso(agrupando(funRaceName))
-export_csv = dfFunRace.to_csv ('Fun_Race_3D.csv', header=True)
+# funRaceName= 'com.slippy.linerusher'
+# dfFunRace = porUso(agrupando(funRaceName))
+# export_csv = dfFunRace.to_csv ('Fun_Race_3D.csv', header=True)
