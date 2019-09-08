@@ -9,7 +9,7 @@ df = pd.read_csv('_SELECT_name_battery_level_version_name_device_id_timestamp_FR
 df['timestamp'] =  pd.to_datetime(df['timestamp'])
 
 def GamesMostUsed(listOfGames):
-    # Os com mais dados do top 20 da playstore
+    """Os com mais dados do top 20 da playstore"""
     amount = []
     for i in listOfGames:
         qtd=0
@@ -42,6 +42,7 @@ def agrupando(nome):
     return(version_name)
 
 def porUso(jogoAgrupado):
+    """Separando por uso e deletando os repetidos"""
     dfJogo = pd.DataFrame()
     dateInit = []
     batteryInit =[]
@@ -68,12 +69,8 @@ def porUso(jogoAgrupado):
                     dateFinal.append(val0[i+1][0])
                     batteryFinal.append(val0[i+1][1]) 
                     # print("END", "final:", val0[i+1][1])
-    # print("inicio: ", batteryInit)
-    # print("inicio: ", dateInit)
-    # print(len(dateInit))
-    # print("fim: ",batteryFinal)
-    # print("fim: ",dateFinal)
-    # print(len(dateFinal))
+    # print("inicio: ", batteryInit, dateInit)
+    # print("fim: ",batteryFinal,dateFinal)
     dfJogo['BatteryLevelFinal'] = batteryFinal
     dfJogo['BatteryLevelInitial'] = batteryInit
     dfJogo['TimestampFinal'] = dateFinal
@@ -100,12 +97,16 @@ def porUso(jogoAgrupado):
     return(dfJogo)
 
 def exportCSV(gamesList):
+    """Exportando cada uso de cada jogo em um csv com nome do jogo"""
     for i in gamesList:
         nameG = i
         dfG = porUso(agrupando(nameG))
         arqName = nameG + '.csv'
         export_csv = dfG.to_csv (arqName, header=True)
     
+#--------------------------MAIN-----------------------#
+
+#Top 20 Playstore Free Games
 games = ['com.dts.freefireth', 'com.slippy.linerusher','com.innersloth.spacemafia',
          'com.playgendary.tom','com.kiloo.subwaysurf','com.cassette.aquapark',
          'com.roblox.client','com.dpspace.rocketsky', 'com.crazylabs.lady.bug',
@@ -116,30 +117,3 @@ games = ['com.dts.freefireth', 'com.slippy.linerusher','com.innersloth.spacemafi
 
 selected_games = GamesMostUsed(games)
 exportCSV(selected_games)
-
-
-# funRaceName= 'com.slippy.linerusher'
-# dfFunRace = porUso(agrupando(funRaceName))
-# export_csv = dfFunRace.to_csv ('Fun_Race_3D.csv', header=True)
-
-# TOP 20 PLAYSTORE
-#     Garena Free Fire: com.dts.freefireth
-#     Fun Race 3D: com.slippy.linerusher
-#     Among Us: com.innersloth.spacemafia
-#     Tomb of the Mask: com.playgendary.tom
-#     Subway Surfers: com.kiloo.subwaysurf
-#     aquapark.io: com.cassette.aquapark
-#     * ROBLOX: com.roblox.client
-#     Rocket Sky!: com.dpspace.rocketsky
-#     Miraculous: Ladybug & Gato Noir Jogo Oficial: com.crazylabs.lady.bug
-#     PUBG MOBILE LITE: com.tencent.iglite
-#     Flip Dunk: com.tapped.flipdunk
-#     Magic Tiles 3: com.youmusic.magictiles
-#     *Pou : me.pou.app
-#     Sand Balls: com.water.balls
-#     *Meu Talking Tom 2: com.outfit7.mytalkingtom
-#     Teste do Minecraft: com.mojang.minecrafttrialpe
-#     Run Race - Corrida 3D: com.mgc.runnergame
-#     Tiles Hop: Forever Dancing Ball: com.amanotes.beathopper
-#     8 Ball Pool: com.miniclip.eightballpool
-#     Angry Birds 2: com.rovio.baba
