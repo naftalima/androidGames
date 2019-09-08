@@ -5,11 +5,24 @@ import numpy as np
 df = pd.read_csv('_SELECT_name_battery_level_version_name_device_id_timestamp_FROM_201909071531.csv')
 # name, battery_level, version_name, device_id, timestamp
 
-# #new empty dataframe 
-# dfFreeFire = pd.DataFrame() # free fire
-
 # str into  <class 'pandas._libs.tslib.Timestamp>
 df['timestamp'] =  pd.to_datetime(df['timestamp'])
+
+def GamesMostUsed(listOfGames):
+    # Os com mais dados do top 20 da playstore
+    amount = []
+    for i in listOfGames:
+        qtd=0
+        for index, row in df.iterrows():
+                if row["name"] == i: 
+                    qtd+=1
+        amount.append(qtd)
+        # print(i,"qtd: ",qtd)
+    gamesGood = []
+    for i in range(len(amount)):
+        if amount[i] > 100:
+            gamesGood.append(listOfGames[i])
+    return(gamesGood)
 
 def agrupando(nome):
     # version_name={ #NESTED DICT
@@ -28,16 +41,12 @@ def agrupando(nome):
     del version_name[0.0]
     return(version_name)
 
-
 def porUso(jogoAgrupado):
-
     dfJogo = pd.DataFrame()
-    
     dateInit = []
     batteryInit =[]
     dateFinal = []
     batteryFinal =[]
-    
     for key, val in jogoAgrupado.items():
         # print("version_name",key)
         for key0, val0 in val.items():
@@ -59,21 +68,17 @@ def porUso(jogoAgrupado):
                     dateFinal.append(val0[i+1][0])
                     batteryFinal.append(val0[i+1][1]) 
                     # print("END", "final:", val0[i+1][1])
-
     # print("inicio: ", batteryInit)
     # print("inicio: ", dateInit)
     # print(len(dateInit))
     # print("fim: ",batteryFinal)
     # print("fim: ",dateFinal)
     # print(len(dateFinal))
-
     dfJogo['BatteryLevelFinal'] = batteryFinal
     dfJogo['BatteryLevelInitial'] = batteryInit
     dfJogo['TimestampFinal'] = dateFinal
     dfJogo['TimestampInitial'] = dateInit
-
     # print(dfJogo.head(10))
-
     batteryused = []
     elapsedtime = []
     for index, row in dfJogo.iterrows():
@@ -83,20 +88,41 @@ def porUso(jogoAgrupado):
         # # diff.seconds <class 'int'>
         batteryused.append(battery)
         elapsedtime.append(time.seconds)
-
     dfJogo = dfJogo.drop(columns="BatteryLevelFinal")
     dfJogo = dfJogo.drop(columns="BatteryLevelInitial")
     dfJogo = dfJogo.drop(columns="TimestampInitial")
     dfJogo = dfJogo.drop(columns="TimestampFinal")
-
     dfJogo['Battery_Used'] = batteryused
     dfJogo['ElapsedTimestamp'] = elapsedtime
-
-    dfJogo = dfJogo.set_index("ElapsedTimestamp")
-    dfJogo = dfJogo.drop(0, axis=0)
-
+    dfJogo = dfJogo.set_index("Battery_Used")
+    dfJogo = dfJogo.drop(0, axis=0) 
+    # # ValueError: labels [0] not contained in axis
     return(dfJogo)
 
+def exportCSV(gamesList):
+    for i in gamesList:
+        nameG = i
+        dfG = porUso(agrupando(nameG))
+        arqName = nameG + '.csv'
+        export_csv = dfG.to_csv (arqName, header=True)
+    
+games = ['com.dts.freefireth', 'com.slippy.linerusher','com.innersloth.spacemafia',
+         'com.playgendary.tom','com.kiloo.subwaysurf','com.cassette.aquapark',
+         'com.roblox.client','com.dpspace.rocketsky', 'com.crazylabs.lady.bug',
+         'com.tencent.iglite','com.tapped.flipdunk','com.youmusic.magictiles',
+         'me.pou.app', 'com.water.balls','com.outfit7.mytalkingtom',
+         'com.mojang.minecrafttrialpe','com.mgc.runnergame','com.amanotes.beathopper',
+         'com.miniclip.eightballpool', 'com.rovio.baba' ]
+
+selected_games = GamesMostUsed(games)
+exportCSV(selected_games)
+
+
+# funRaceName= 'com.slippy.linerusher'
+# dfFunRace = porUso(agrupando(funRaceName))
+# export_csv = dfFunRace.to_csv ('Fun_Race_3D.csv', header=True)
+
+# TOP 20 PLAYSTORE
 #     Garena Free Fire: com.dts.freefireth
 #     Fun Race 3D: com.slippy.linerusher
 #     Among Us: com.innersloth.spacemafia
@@ -117,12 +143,3 @@ def porUso(jogoAgrupado):
 #     Tiles Hop: Forever Dancing Ball: com.amanotes.beathopper
 #     8 Ball Pool: com.miniclip.eightballpool
 #     Angry Birds 2: com.rovio.baba
-
-freeFireName= 'com.dts.freefireth'
-dfFreefire = porUso(agrupando(freeFireName))
-export_csv = dfFreefire.to_csv ('Garena_Free_Fire.csv', header=True)
-
-# funRaceName= 'com.slippy.linerusher'
-# dfFunRace = porUso(agrupando(funRaceName))
-# export_csv = dfFunRace.to_csv ('Fun_Race_3D.csv', header=True)
-print("what")
