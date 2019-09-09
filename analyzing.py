@@ -93,7 +93,7 @@ def porUso(jogoAgrupado):
     dfJogo['ElapsedTimestamp'] = elapsedtime
     dfJogo = dfJogo.set_index("Battery_Used")
     dfJogo = dfJogo.drop(0, axis=0) 
-    # # ValueError: labels [0] not contained in axis
+    # dfJogo = dfJogo['Battery_Used'].round(decimals=3)
     return(dfJogo)
 
 def exportCSV(gamesList):
