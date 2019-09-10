@@ -24,6 +24,11 @@ for i in range(len(games)-1):
     df = pd.read_csv(csv)
     # df = df['Battery_Used'].round(decimals=3)
     ax = df.plot(kind='scatter',x='ElapsedTimestamp',y='Battery_Used',color=color[i],label=gamesLegend[i],ax=ax)
-
-plt.legend(loc='lower left', numpoints=1, bbox_to_anchor=(0.7,0.5))
+# ax = plt.gca()
+# i=6
+# csv = games[i] + '.csv'
+# df = pd.read_csv(csv)
+# # df = df['Battery_Used'].round(decimals=3)
+# ax = df.plot(kind='scatter',x='ElapsedTimestamp',y='Battery_Used',color=color[i],label=gamesLegend[i],ax=ax)
+# plt.legend(loc='lower left', numpoints=1, bbox_to_anchor=(0.7,0.5))
 plt.show()
