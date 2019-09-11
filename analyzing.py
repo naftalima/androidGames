@@ -1,8 +1,9 @@
 import pandas as pd
 import numpy as np
+import math
 
 #df: data frame
-df = pd.read_csv('_SELECT_name_battery_level_version_name_device_id_timestamp_FROM_201909071531.csv')
+df = pd.read_csv('data/_SELECT_name_battery_level_version_name_device_id_timestamp_FROM_201909071531.csv')
 # name, battery_level, version_name, device_id, timestamp
 
 # str into  <class 'pandas._libs.tslib.Timestamp>
@@ -79,8 +80,8 @@ def porUso(jogoAgrupado):
     batteryused = []
     elapsedtime = []
     for index, row in dfJogo.iterrows():
-        battery = row['BatteryLevelInitial'] - row['BatteryLevelFinal']
-        time = row['TimestampFinal'] - row['TimestampInitial']
+        battery = np.subtract(row['BatteryLevelInitial'], row['BatteryLevelFinal'] )
+        time = np.subtract( row['TimestampFinal'] , row['TimestampInitial'] )
         # # <class 'pandas._libs.tslib.Timedelta'>
         # # diff.seconds <class 'int'>
         batteryused.append(battery)
@@ -89,11 +90,22 @@ def porUso(jogoAgrupado):
     dfJogo = dfJogo.drop(columns="BatteryLevelInitial")
     dfJogo = dfJogo.drop(columns="TimestampInitial")
     dfJogo = dfJogo.drop(columns="TimestampFinal")
+
+    #float error problem
+    #tentei:
+    # dfJogo = dfJogo.apply(lambda x : round(x,3))
+    # dfJogo = dfJogo['Battery_Used'].round(decimals=3)
+    # # some float problem 
+    # n deu certo entao:
+    #GAMBIARRA
+    for i in range(len(batteryused)):
+        batteryused[i] = math.floor(batteryused[i]*100000)/100000
+
     dfJogo['Battery_Used'] = batteryused
     dfJogo['ElapsedTimestamp'] = elapsedtime
     dfJogo = dfJogo.set_index("Battery_Used")
-    dfJogo = dfJogo.drop(0, axis=0) 
-    # dfJogo = dfJogo['Battery_Used'].round(decimals=3)
+    dfJogo = dfJogo.drop(0, axis=0)
+
     return(dfJogo)
 
 def exportCSV(gamesList):
@@ -101,7 +113,7 @@ def exportCSV(gamesList):
     for i in gamesList:
         nameG = i
         dfG = porUso(agrupando(nameG))
-        arqName = nameG + '.csv'
+        arqName = 'data/' + nameG + '.csv'
         export_csv = dfG.to_csv (arqName, header=True)
     
 #--------------------------MAIN-----------------------#
