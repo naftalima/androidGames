@@ -3,26 +3,16 @@ FROM app_processes INNER JOIN samples
 ON samples.id = app_processes.sample_id
 WHERE `timestamp` >= '01-01-2018 00:00:00'
 AND ( NOT battery_state='Charging') AND importance='Foreground app'
-AND ( name='com.dts.freefireth' 
-OR name='com.supercell.clashroyale' 
-OR name='com.nianticlabs.pokemongo' 
-OR name='com.igg.android.lordsmobile'
-OR name='com.supercell.brawlstars' 
-OR name='com.supercell.clashofclans'
-OR name='com.king.candycrushsaga' 
-OR name='com.mobile.legends'
-OR name='com.tencent.ig'
-OR name='com.playrix.gardenscapes'
-OR name='com.miniclip.eightballpool' 
-OR name='com.playrix.township'
-OR name='jp.konami.duellinks' 
-OR name='com.king.candycrushsodasaga'
-OR name='com.kabam.marvelbattle'
-OR name='com.hcg.cok.gp'
-OR name='com.king.farmheroessaga'
-OR name='com.youmusic.magictiles'
-OR name='com.kiloo.subwaysurf' 
-OR name='com.imangi.templerun2' )
+AND ( name='com.dts.freefireth'  OR name='com.supercell.clashroyale'
+OR name='com.nianticlabs.pokemongo' OR name='com.igg.android.lordsmobile'
+OR name='com.supercell.brawlstars' OR name='com.supercell.clashofclans'
+OR name='com.king.candycrushsaga' OR name='com.mobile.legends'
+OR name='com.tencent.ig' OR name='com.playrix.gardenscapes'
+OR name='com.miniclip.eightballpool' OR name='com.playrix.township'
+OR name='jp.konami.duellinks' OR name='com.king.candycrushsodasaga'
+OR name='com.kabam.marvelbattle' OR name='com.rovio.baba'
+OR name='com.king.farmheroessaga' OR name='com.youmusic.magictiles'
+OR name='com.kiloo.subwaysurf' OR name='com.imangi.templerun2' )
 ORDER BY name, device_id, `timestamp`
 
 /* it is important that the phone is not charging because I will analyze its discharge*/

@@ -1,0 +1,20 @@
+Garena Free Fire- Anniversary: com.dts.freefireth
+Clash Royale: com.supercell.clashroyale
+Pokémon GO: com.nianticlabs.pokemongo
+Lords Mobile- Battle of the Empires - Strategy RPG: com.igg.android.lordsmobile
+Brawl Stars: com.supercell.brawlstars
+Clash of Clans: com.supercell.clashofclans
+Candy Crush Saga: com.king.candycrushsaga
+Mobile Legends- Bang Bang: com.mobile.legends
+PUBG MOBILE: com.tencent.ig
+Gardenscapes: com.playrix.gardenscapes
+8 Ball Pool: com.miniclip.eightballpool
+Township: com.playrix.township
+Yu-Gi-Oh! Duel Links: jp.konami.duellinks
+Candy Crush Soda Saga: com.king.candycrushsodasaga
+Angry Birds 2: com.rovio.baba
+Clash of Kings- Eight Kingdoms Conflict: com.hcg.cok.gp
+Farm Heroes Saga: com.king.farmheroessaga
+Magic Tiles 3: com.youmusic.magictiles
+Subway Surfers: com.kiloo.subwaysurf
+Temple Run 2: com.imangi.templerun2
