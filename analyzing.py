@@ -136,10 +136,5 @@ def exportCSV(gamesList):
 #--------------------------MAIN-----------------------#
 
 games =  url(games_names())
-print(games)
-print(len(games))
 selected_games = GamesMostUsed(games)
-print(len(selected_games))
-print(selected_games)
-# print(selected_games)
 exportCSV(selected_games)
