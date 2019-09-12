@@ -29,24 +29,58 @@ gamesLegend = ['Garena Free Fire',
                'Subway Surfers',
                'Temple Run 2']
 
-######### nome, media, mediana, desvio padrao
-# data=[]
-# # medicoes = []
-# for i in range(len(games)-1):
-    # csv = 'data/' + games[i] + '.csv'
-    # df = pd.read_csv(csv)
-    # perSecond = []
-    # for index, row in df.iterrows():
-        # # print(row['ElapsedTimestamp'])
-        # minuto =   np.divide(row['ElapsedTimestamp'] , 60 )
-        # # print(minuto)
-        # # print(row['Battery_Used'])
-        # porSegundo = np.divide(row['Battery_Used'], minuto)
-        # # print(porSegundo)
-        # perSecond.append(porSegundo)
-    # medicoes.append([gamesLegend[i],np.mean(perSecond),np.median(perSecond),np.std(perSecond)])
+def Medicoes():
+    medidas = []
+    ### nome, media, mediana, desvio padrao
+    for i in range(len(games)-1):
+        csv = 'data/' + games[i] + '.csv'
+        df = pd.read_csv(csv)
+        list_porMin = []
+        for index, row in df.iterrows():
+            minuto =   np.divide(row['ElapsedTimestamp'] , 60 )
+            porMin = np.divide(row['Battery_Used'], minuto)
+            list_porMin .append(porMin)
+        medidas.append([gamesLegend[i],np.mean(list_porMin),np.median(list_porMin),np.std(list_porMin)])
+    return(medidas)
 
-# print(medicoes)
+
+def VioBoxPlt()
+    data={'nome': []}
+    for i in range(len(games)-1):
+        csv = 'data/' + games[i] + '.csv'
+        df = pd.read_csv(csv)
+        perSecond = []
+        for index, row in df.iterrows():
+            minuto =   np.divide(row['ElapsedTimestamp'] , 60 )
+            porSegundo = np.divide(row['Battery_Used'], minuto)
+            perSecond.append(porSegundo)
+        data[gamesLegend[i]] = perSecond
+    del data['nome']
+
+    fig,axes = plt.subplots(nrows=1,ncols=2,figsize=(9,4))
+    axes[0].violinplot(data['Garena Free Fire'], showmeans = False, showmedians=True)
+    axes[0].set_title('Violin plot')
+
+    axes[1].boxplot(data['Garena Free Fire'])
+    axes[1].set_title('Box plot')
+
+    return(plt.show())
+
+# 
+# for key in data:
+#     data[key].sort()
+#     t = 0
+#     for x in data[key]:
+#       print(x)
+#       if x <= 0.05:
+#         t+=1
+#     print(t)
+#     break
+
+
+
+
+# print(Medicoes())
 # [
 # ['Garena Free Fire', 0.012170479054470839, 0.007629020194465219, 0.026555653153621014],
 #  ['CLash Royale', 0.007801094621036076, 0.004868191372439386, 0.015021152152397514], 
@@ -60,29 +94,3 @@ gamesLegend = ['Garena Free Fire',
 #  ['Candy Crush Soda Saga', 0.06238340100487589, 0.023076923076922964, 0.11950605788318647], 
 #  ['Subway Surfers', 0.010496265251695062, 0.007029529694306497, 0.017205487064180597]
 # ]
-
-
-data={'nome': []}
-for i in range(len(games)-1):
-    csv = 'data/' + games[i] + '.csv'
-    df = pd.read_csv(csv)
-    perSecond = []
-    for index, row in df.iterrows():
-        minuto =   np.divide(row['ElapsedTimestamp'] , 60 )
-        porSegundo = np.divide(row['Battery_Used'], minuto)
-        perSecond.append(porSegundo)
-    data[gamesLegend[i]] = perSecond
-
-
-del data['nome']
-# df = pd.DataFrame.from_dict(data)
-# print(df.head(15))
-
-fig,axes = plt.subplots(nrows=1,ncols=2,figsize=(9,4))
-axes[0].violinplot(data['Garena Free Fire'], showmeans = False, showmedians=True)
-axes[0].set_title('Violin plot')
-
-axes[1].boxplot(data['Garena Free Fire'])
-axes[1].set_title('Box plot')
-
-plt.show()
