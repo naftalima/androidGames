@@ -1,6 +1,7 @@
 import pandas as pd
 import numpy as np
 import math
+import matplotlib.pyplot as plt
 
 games = ['com.dts.freefireth', 
          'com.supercell.clashroyale',
@@ -28,25 +29,60 @@ gamesLegend = ['Garena Free Fire',
                'Subway Surfers',
                'Temple Run 2']
 
-porSegundo = []
+######### nome, media, mediana, desvio padrao
+# data=[]
+# # medicoes = []
+# for i in range(len(games)-1):
+    # csv = 'data/' + games[i] + '.csv'
+    # df = pd.read_csv(csv)
+    # perSecond = []
+    # for index, row in df.iterrows():
+        # # print(row['ElapsedTimestamp'])
+        # minuto =   np.divide(row['ElapsedTimestamp'] , 60 )
+        # # print(minuto)
+        # # print(row['Battery_Used'])
+        # porSegundo = np.divide(row['Battery_Used'], minuto)
+        # # print(porSegundo)
+        # perSecond.append(porSegundo)
+    # medicoes.append([gamesLegend[i],np.mean(perSecond),np.median(perSecond),np.std(perSecond)])
+
+# print(medicoes)
+# [
+# ['Garena Free Fire', 0.012170479054470839, 0.007629020194465219, 0.026555653153621014],
+#  ['CLash Royale', 0.007801094621036076, 0.004868191372439386, 0.015021152152397514], 
+#  ['Pokémon GO', 0.006743040423301644, 0.006507142857142856, 0.004451988563760966],
+#  ['Clash of Clans', 0.009341849467959983, 0.006666666666666671, 0.014311391763193966],
+#  ['Candy Crush Saga', 0.032623590247064106, 0.005660377358490563, 0.10748828068021696],
+#  ['Mobile Legends- Bang Bang', 0.011013458566150556, 0.00759493670886076, 0.015791555627991453], 
+#  ['PUG MOBILE', 0.020856744254217838, 0.011941225333279307, 0.05742843748470973], 
+#  ['8 Ball Pool', 0.011568850585342237, 0.00757193336698637, 0.015350708799005583], 
+#  ['Township', 0.010753715332584015, 0.007174887892376678, 0.014464733809207183],
+#  ['Candy Crush Soda Saga', 0.06238340100487589, 0.023076923076922964, 0.11950605788318647], 
+#  ['Subway Surfers', 0.010496265251695062, 0.007029529694306497, 0.017205487064180597]
+# ]
+
+
+data={'nome': []}
 for i in range(len(games)-1):
-    print(gamesLegend[i])
     csv = 'data/' + games[i] + '.csv'
     df = pd.read_csv(csv)
     perSecond = []
     for index, row in df.iterrows():
-        minuto = row['Battery_Used'] * 1000
-        print('veio',minuto)
-        minuto = minuto / 60
-        print(minuto)
-    break
+        minuto =   np.divide(row['ElapsedTimestamp'] , 60 )
+        porSegundo = np.divide(row['Battery_Used'], minuto)
+        perSecond.append(porSegundo)
+    data[gamesLegend[i]] = perSecond
 
 
-        # print(row['ElapsedTimestamp'])
-        # minuto = np.divide(np.floor(row['ElapsedTimestamp']*100000),60)
-        # minuto = np.divide(minuto,100000)
-        # print('minutos: ', minuto)
-        # print('Descarregou:' ,row['Battery_Used'])
-        # number = np.divide(np.divide(np.multiply(row['Battery_Used'],100000),minuto),100000)
-        # print('Por Segundos:',number)
-        
+del data['nome']
+# df = pd.DataFrame.from_dict(data)
+# print(df.head(15))
+
+fig,axes = plt.subplots(nrows=1,ncols=2,figsize=(9,4))
+axes[0].violinplot(data['Garena Free Fire'], showmeans = False, showmedians=True)
+axes[0].set_title('Violin plot')
+
+axes[1].boxplot(data['Garena Free Fire'])
+axes[1].set_title('Box plot')
+
+plt.show()

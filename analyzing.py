@@ -114,9 +114,9 @@ def porUso(jogoAgrupado):
     # dfJogo = dfJogo['Battery_Used'].round(decimals=3)
     # # some float problem
     # n deu certo entao:
-    #GAMBIARRA
+    # #GAMBIARRA
     # for i in range(len(batteryused)):
-    #     batteryused[i] = math.floor(batteryused[i]*100000)/100000
+        # batteryused[i] = math.floor(batteryused[i]*100000)/100000
 
     dfJogo['Battery_Used'] = batteryused
     dfJogo['ElapsedTimestamp'] = elapsedtime
