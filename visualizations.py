@@ -72,20 +72,3 @@ def histograma():
     plt.show()
     return()
 
-
-n=11
-vio_box(n)
-
-#  ['Garena Free Fire', 
-# 'Clash Royale',
-# 'Pokémon GO',
-# 'Clash of Clans',
-# 'Candy Crush Saga',Candy Crush Saga
-# 'Mobile Legends- Bang Bang',
-# 'PUG MOBILE',PUG MOBILE
-# '8 Ball Pool',
-# 'Township',
-# 'Candy Crush Soda Saga',
-# 'Subway Surfers',
-# 'Temple Run 2']
-
