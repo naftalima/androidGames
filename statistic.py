@@ -3,7 +3,7 @@ import numpy as np
 import math
 import matplotlib.pyplot as plt
 
-games = ['com.dts.freefireth', 
+games = ['com.dts.freefireth',
          'com.supercell.clashroyale',
          'com.nianticlabs.pokemongo',
          'com.supercell.clashofclans',
@@ -16,8 +16,8 @@ games = ['com.dts.freefireth',
          'com.kiloo.subwaysurf',
          'com.imangi.templerun2']
 
-gamesLegend = ['Garena Free Fire', 
-               'CLash Royale',
+gamesLegend = ['Garena Free Fire',
+               'Clash Royale',
                'Pokémon GO',
                'Clash of Clans',
                'Candy Crush Saga',
@@ -29,44 +29,62 @@ gamesLegend = ['Garena Free Fire',
                'Subway Surfers',
                'Temple Run 2']
 
-def Medicoes():
-    medidas = []
-    ### nome, media, mediana, desvio padrao
-    for i in range(len(games)-1):
+
+def por_minuto():
+    dado={'nome':[]}
+    for i in range(len(games)):
         csv = 'data/' + games[i] + '.csv'
         df = pd.read_csv(csv)
-        list_porMin = []
+        batteryPerMinute = []
         for index, row in df.iterrows():
-            minuto =   np.divide(row['ElapsedTimestamp'] , 60 )
-            porMin = np.divide(row['Battery_Used'], minuto)
-            list_porMin .append(porMin)
-        medidas.append([gamesLegend[i],np.mean(list_porMin),np.median(list_porMin),np.std(list_porMin)])
-    return(medidas)
+            minuto = np.divide(row['ElapsedTimestamp'] , 60 )
+            batmin =  np.divide(row['Battery_Used'], minuto)
+            if batmin < 0.05:# isn't outlier
+                batteryPerMinute.append(batmin)
+        dado[gamesLegend[i]] = batteryPerMinute
+    del dado['nome']
+    return(dado)
+
+def Medicoes(dado):
+    metricas = {'jogo':['media','mediana','desvio_padrao']} #{'nome': media, mediana, desvio_padrao}
+    for i in gamesLegend:
+        metricas[i] = [np.mean(dado[i]),np.median(dado[i]),np.std(dado[i])]
+    return(metricas)
 
 
-def VioBoxPlt()
-    data={'nome': []}
-    for i in range(len(games)-1):
-        csv = 'data/' + games[i] + '.csv'
-        df = pd.read_csv(csv)
-        perSecond = []
-        for index, row in df.iterrows():
-            minuto =   np.divide(row['ElapsedTimestamp'] , 60 )
-            porSegundo = np.divide(row['Battery_Used'], minuto)
-            perSecond.append(porSegundo)
-        data[gamesLegend[i]] = perSecond
-    del data['nome']
+data = por_minuto() # df = pd.DataFrame.from_dict(data) #ValueError: arrays must all be same length
+# print(data.keys())
 
-    fig,axes = plt.subplots(nrows=1,ncols=2,figsize=(9,4))
-    axes[0].violinplot(data['Garena Free Fire'], showmeans = False, showmedians=True)
-    axes[0].set_title('Violin plot')
+n = 1
+fig,axes = plt.subplots(nrows=1,ncols=2,figsize=(9,4))
 
-    axes[1].boxplot(data['Garena Free Fire'])
-    axes[1].set_title('Box plot')
+axes[0].violinplot(data[gamesLegend[0]]), showmeans = False, showmedians=True)
+axes[0].set_title('Violin plot')
 
-    return(plt.show())
+axes[1].boxplot(data[gamesLegend[0]])
+axes[1].set_title('Box plot')
 
-# 
+plt.show()
+
+# medidas = Medicoes(data)
+# print(medidas)
+
+# {'jogo': ['media', 'mediana', 'desvio_padrao'],
+#  'Garena Free Fire': [0.009903134923123488, 0.007428685683817649, 0.008591887075332936],
+#  'CLash Royale': [0.006153860128782758, 0.004800000000000003, 0.005568869438875517],
+#  'Pokémon GO': [0.006743040423301644, 0.006507142857142856, 0.004451988563760966],
+#  'Clash of Clans': [0.007800643231207369, 0.006666666666666637, 0.0062687925898687585],
+#  'Candy Crush Saga': [0.008836041931589477, 0.005125467164975972, 0.009271498156189993],
+#  'Mobile Legends- Bang Bang': [0.009396748890152419, 0.007484798145043008, 0.007145288454864934],
+#  'PUG MOBILE': [0.013220770893705153, 0.011501714845663879, 0.010478974369538156],
+#  '8 Ball Pool': [0.008767966430073017, 0.0075000000000000075, 0.006155757649017347],
+#  'Township': [0.009720163002845799, 0.00710084033613446, 0.008049447293382134],
+#  'Candy Crush Soda Saga': [0.017144963977093093, 0.015409187709157291, 0.013083622789410816],
+#  'Subway Surfers': [0.007806103634012653, 0.006666666666666653, 0.006344042847891743],
+#  'Temple Run 2': [0.01270062048451816, 0.008571428571428572, 0.009605317898837156]
+#  }
+
+#
 # for key in data:
 #     data[key].sort()
 #     t = 0
@@ -78,19 +96,3 @@ def VioBoxPlt()
 #     break
 
 
-
-
-# print(Medicoes())
-# [
-# ['Garena Free Fire', 0.012170479054470839, 0.007629020194465219, 0.026555653153621014],
-#  ['CLash Royale', 0.007801094621036076, 0.004868191372439386, 0.015021152152397514], 
-#  ['Pokémon GO', 0.006743040423301644, 0.006507142857142856, 0.004451988563760966],
-#  ['Clash of Clans', 0.009341849467959983, 0.006666666666666671, 0.014311391763193966],
-#  ['Candy Crush Saga', 0.032623590247064106, 0.005660377358490563, 0.10748828068021696],
-#  ['Mobile Legends- Bang Bang', 0.011013458566150556, 0.00759493670886076, 0.015791555627991453], 
-#  ['PUG MOBILE', 0.020856744254217838, 0.011941225333279307, 0.05742843748470973], 
-#  ['8 Ball Pool', 0.011568850585342237, 0.00757193336698637, 0.015350708799005583], 
-#  ['Township', 0.010753715332584015, 0.007174887892376678, 0.014464733809207183],
-#  ['Candy Crush Soda Saga', 0.06238340100487589, 0.023076923076922964, 0.11950605788318647], 
-#  ['Subway Surfers', 0.010496265251695062, 0.007029529694306497, 0.017205487064180597]
-# ]
