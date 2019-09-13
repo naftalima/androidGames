@@ -46,25 +46,41 @@ def por_minuto():
     return(dado)
 
 def Medicoes(dado):
-    metricas = {'jogo':['media','mediana','desvio_padrao']} #{'nome': media, mediana, desvio_padrao}
+    metricas = {} #{'nome_jogo': media, mediana, desvio_padrao}
     for i in gamesLegend:
         metricas[i] = [np.mean(dado[i]),np.median(dado[i]),np.std(dado[i])]
     return(metricas)
 
+def Maior_Menor(dfMedias):
+    print('maior')
+    print(dfMedias.idxmax())  
+    print(dfMedias.max())
+    print('menor')  
+    print(dfMedias.idxmin())  
+    print(dfMedias.min())
+    return()
 
-data = por_minuto() # df = pd.DataFrame.from_dict(data) #ValueError: arrays must all be same length
+
+
+data = por_minuto()
 # print(data.keys())
 
-n = 1
-fig,axes = plt.subplots(nrows=1,ncols=2,figsize=(9,4))
+medidas = Medicoes(data)
+dfm = pd.DataFrame.from_dict(medidas,orient='index') #, columns= ['media', 'mediana', 'std']
+dfm.columns = ['media','mediana','std']
+print(dfm)
+Maior_Menor(dfm)
 
-axes[0].violinplot(data[gamesLegend[0]]), showmeans = False, showmedians=True)
-axes[0].set_title('Violin plot')
+# n = 1
+# fig,axes = plt.subplots(nrows=1,ncols=2,figsize=(9,4))
 
-axes[1].boxplot(data[gamesLegend[0]])
-axes[1].set_title('Box plot')
+# axes[0].violinplot(data['Temple Run 2']), showmeans = False, showmedians=True)
+# axes[0].set_title('Violin plot')
 
-plt.show()
+# axes[1].boxplot(data['Temple Run 2'])
+# axes[1].set_title('Box plot')
+
+# plt.show()
 
 # medidas = Medicoes(data)
 # print(medidas)
@@ -83,16 +99,3 @@ plt.show()
 #  'Subway Surfers': [0.007806103634012653, 0.006666666666666653, 0.006344042847891743],
 #  'Temple Run 2': [0.01270062048451816, 0.008571428571428572, 0.009605317898837156]
 #  }
-
-#
-# for key in data:
-#     data[key].sort()
-#     t = 0
-#     for x in data[key]:
-#       print(x)
-#       if x <= 0.05:
-#         t+=1
-#     print(t)
-#     break
-
-
