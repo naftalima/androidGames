@@ -16,7 +16,7 @@ games = ['com.dts.freefireth',
          'com.imangi.templerun2']
 
 gamesLegend = ['Garena Free Fire', 
-               'CLash Royale',
+               'Clash Royale',
                'Pokémon GO',
                'Clash of Clans',
                'Candy Crush Saga',
@@ -49,18 +49,19 @@ def por_minuto():
     del dado['nome']
     return(dado)
 
-def main_vio_box(n):
+def vio_box(n):
     data = por_minuto()
 
     fig,axes = plt.subplots(nrows=1,ncols=2,figsize=(9,4))
 
-    axes[0].violinplot(data[n], showmeans = False, showmedians=True)
+    axes[0].violinplot(data[gamesLegend[n]], showmeans = False, showmedians=True)
     axes[0].set_title('Violin plot')
 
-    axes[1].boxplot(data[n])
+    axes[1].boxplot(data[gamesLegend[n]])
     axes[1].set_title('Box plot')
 
     plt.show()
+    return()
 
 def histograma():
     ax = plt.gca()
@@ -69,7 +70,22 @@ def histograma():
         df = pd.read_csv(csv)
         ax = df.plot(kind='scatter',x='ElapsedTimestamp',y='Battery_Used',color=color[i],label=gamesLegend[i],ax=ax)
     plt.show()
+    return()
 
 
-#0 a 11
-main_vio_box(0)
+n=11
+vio_box(n)
+
+#  ['Garena Free Fire', 
+# 'Clash Royale',
+# 'Pokémon GO',
+# 'Clash of Clans',
+# 'Candy Crush Saga',Candy Crush Saga
+# 'Mobile Legends- Bang Bang',
+# 'PUG MOBILE',PUG MOBILE
+# '8 Ball Pool',
+# 'Township',
+# 'Candy Crush Soda Saga',
+# 'Subway Surfers',
+# 'Temple Run 2']
+
