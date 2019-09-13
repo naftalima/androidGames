@@ -30,6 +30,7 @@ gamesLegend = ['Garena Free Fire',
 
 
 def por_minuto():
+    """Normalizando os dados por uso em qnto % de bateria é utilizado por minuto"""
     dado={'nome':[]}
     for i in range(len(games)):
         csv = 'data/' + games[i] + '.csv'
@@ -65,7 +66,7 @@ data = por_minuto()
 medidas = Medicoes(data)
 dfm = pd.DataFrame.from_dict(medidas,orient='index')
 dfm.columns = ['media','mediana','std']
-# print(dfm)
 Maior_Menor(dfm)
+# print(dfm)
 
 

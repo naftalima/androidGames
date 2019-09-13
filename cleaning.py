@@ -108,16 +108,6 @@ def porUso(jogoAgrupado):
     dfJogo = dfJogo.drop(columns="TimestampInitial")
     dfJogo = dfJogo.drop(columns="TimestampFinal")
 
-    #float error problem
-    #tentei:
-    # dfJogo = dfJogo.apply(lambda x : round(x,3))
-    # dfJogo = dfJogo['Battery_Used'].round(decimals=3)
-    # # some float problem
-    # n deu certo entao:
-    # #GAMBIARRA
-    # for i in range(len(batteryused)):
-        # batteryused[i] = math.floor(batteryused[i]*100000)/100000
-
     dfJogo['Battery_Used'] = batteryused
     dfJogo['ElapsedTimestamp'] = elapsedtime
     dfJogo = dfJogo.set_index("Battery_Used")

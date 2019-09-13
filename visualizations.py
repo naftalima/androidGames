@@ -34,6 +34,7 @@ color = ['tab:blue','tab:orange','tab:green','tab:red','tab:purple',
 
 
 def por_minuto():
+    """Normalizando os dados por uso em qnto % de bateria é utilizado por minuto"""
     dado={'nome':[]}
     for i in range(len(games)):
         csv = 'data/' + games[i] + '.csv'
@@ -69,4 +70,6 @@ def histograma():
         ax = df.plot(kind='scatter',x='ElapsedTimestamp',y='Battery_Used',color=color[i],label=gamesLegend[i],ax=ax)
     plt.show()
 
-histograma()
+
+#0 a 11
+main_vio_box(0)
