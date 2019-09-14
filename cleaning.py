@@ -123,82 +123,39 @@ def exportCSV(gamesList):
         arqName = 'data/' + nameG + '.csv'
         export_csv = dfG.to_csv (arqName, header=True)
 
+def Count_Users_Versions():
+    users_versions = {}
+    for i in games:
+        nameG = i
+        dictG = agrupando(nameG)
+        versoes = len(dictG)
+        users = 0
+        for key in dictG: #key == versionname
+            users += len(dictG[key])
+        users_versions[nameG] = [versoes,users]
+    df_uv = pd.DataFrame.from_dict(users_versions,orient='index')
+    df_uv.columns = ['versoes','users']
+    return(df_uv)
+
+def main_cleaning():
+    selected_games = GamesMostUsed(games)
+    exportCSV(selected_games)
+    return()
+
+def Maior_Menor(dfCountUV):
+    print('maior qtd:')
+    print(dfCountUV.idxmax())  
+    print(dfCountUV.max())
+    print('menor qtd:')  
+    print(dfCountUV.idxmin())  
+    print(dfCountUV.min())
+    return()
+
 #--------------------------MAIN-----------------------#
 
-# games =  url(games_names())
-# selected_games = GamesMostUsed(games)
-# exportCSV(selected_games)
-
-#########33CRIAR UM DICIONARIO
 games =  url(games_names())
 
-for i in games:
-    nameG = i
-    print(i)
-    dictG = agrupando(nameG)
-    print(len(dictG),"versoes")
-    users = 0
-    for key in dictG: #key == versionname
-        users += len(dictG[key])
-    print(users,"usuarios")
+# main_cleaning()
 
-# com.dts.freefireth
-# 24 versoes
-# 320 usuarios
-# com.supercell.clashroyale
-# 20 versoes
-# 73 usuarios
-# com.nianticlabs.pokemongo
-# 18 versoes
-# 22 usuarios
-# com.igg.android.lordsmobile
-# 7 versoes
-# 8 usuarios
-# com.supercell.brawlstars
-# 11 versoes
-# 31 usuarios
-# com.supercell.clashofclans
-# 36 versoes
-# 144 usuarios
-# com.king.candycrushsaga
-# 31 versoes
-# 54 usuarios
-# com.mobile.legends
-# 45 versoes
-# 318 usuarios
-# com.tencent.ig
-# 8 versoes
-# 37 usuarios
-# com.playrix.gardenscapes
-# 5 versoes
-# 6 usuarios
-# com.miniclip.eightballpool
-# 15 versoes
-# 45 usuarios
-# com.playrix.township
-# 6 versoes
-# 12 usuarios
-# jp.konami.duellinks
-# 6 versoes
-# 6 usuarios
-# com.king.candycrushsodasaga
-# 12 versoes
-# 17 usuarios
-# com.rovio.baba
-# 9 versoes
-# 12 usuarios
-# com.hcg.cok.gp
-# 0 versoes
-# 0 usuarios
-# com.king.farmheroessaga
-# 10 versoes
-# 11 usuarios
-# com.youmusic.magictiles
-# 15 versoes
-# 23 usuarios
-# com.kiloo.subwaysurf
-# 33 versoes
-# 141 usuarios
-# com.imangi.templerun2
-# 23 versoes
-# 43 usuarios
+# qtd = Count_Users_Versions()
+# print(qtd)
