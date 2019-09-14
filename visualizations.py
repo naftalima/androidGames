@@ -65,10 +65,12 @@ def vio_box(n):
 
 def scatter():
     ax = plt.gca()
-    for i in range(len(games)-1):
+    for i in range(len(games)):
         csv = 'data/' + games[i] + '.csv'
         df = pd.read_csv(csv)
         ax = df.plot(kind='scatter',x='ElapsedTimestamp',y='Battery_Used',color=color[i],label=gamesLegend[i],ax=ax)
     plt.show()
     return()
 
+# scatter()
+# vio_box(1)
