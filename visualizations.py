@@ -63,7 +63,7 @@ def vio_box(n):
     plt.show()
     return()
 
-def histograma():
+def scatter():
     ax = plt.gca()
     for i in range(len(games)-1):
         csv = 'data/' + games[i] + '.csv'
