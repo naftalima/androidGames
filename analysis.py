@@ -66,7 +66,8 @@ data = por_minuto()
 medidas = Medicoes(data)
 dfm = pd.DataFrame.from_dict(medidas,orient='index')
 dfm.columns = ['media','mediana','std']
-Maior_Menor(dfm)
+print(dfm)
+# Maior_Menor(dfm)
 # print(dfm)
 
 

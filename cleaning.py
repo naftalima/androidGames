@@ -48,7 +48,8 @@ def agrupando(nome):
     #                                        #NESTED LIST
     version_name={0.0: {0: []}}
     for index, row in df.iterrows():
-        if row["name"] == nome:  #para todos os dados do jogo selecionado
+        # if row["name"] == nome:  #para todos os dados do jogo selecionado
+        if row["name"] == 'com.dts.freefireth':  #para todos os dados do jogo selecionado
             #agrupando pela versão
             if not row["version_name"] in version_name:
                 version_name[row["version_name"]] = {} # cria
@@ -154,7 +155,7 @@ def Maior_Menor(dfCountUV):
 #--------------------------MAIN-----------------------#
 
 games =  url(games_names())
-
+print(agrupando(games))
 # main_cleaning()
 
 # qtd = Count_Users_Versions()
